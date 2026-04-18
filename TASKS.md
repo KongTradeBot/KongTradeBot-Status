@@ -39,9 +39,9 @@ _Stand: 2026-04-18 07:30 Berlin_
 
 | ID | Titel | Blocker |
 |----|-------|---------|
-| T-008 | GitHub Push | Braucht GitHub Personal Access Token |
-| T-021 | Public Status Repo KongTradeBot-Status | Abhaengig von T-008 |
-| T-003 | Cloudflare Tunnel | Braucht cloudflared tunnel login mit Browser |
+
+
+
 
 ---
 
@@ -75,6 +75,10 @@ _Stand: 2026-04-18 07:30 Berlin_
 | T-D24 | Commit b1c413a mit allen Nacht-Aenderungen | 2026-04-18 |
 | T-D25 | Auto-Claim Script: $11.29 geclaimed (Brrudi manuell + Script Nacht) | 2026-04-18 |
 | T-D26 | Bot-Neustart Nacht-Fixes aktiv (claim_loop, sync, dynamic subscribe) | 2026-04-18 |
+| T-D27 | GitHub-Credentials + PAT auf Server gespeichert | 2026-04-18 |
+| T-D28 | Public Repo KongTradeBot-Status angelegt + Initial-Push | 2026-04-18 |
+| T-D29 | generate_status.py + push_status.sh deployed | 2026-04-18 |
+| T-D30 | systemd Timer kongtrade-status-push alle 5min aktiv | 2026-04-18 |
 
 ---
 
