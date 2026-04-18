@@ -1,10 +1,10 @@
 # KongTradeBot Live Status
 
-> 2026-04-18 08:11:04 UTC
+> 2026-04-18 08:16:07 UTC
 
 ## Bot-Status
 ```
-RUNNING (seit Sat 2026-04-18 08:07:14 UTC)
+RUNNING (seit Sat 2026-04-18 08:15:20 UTC)
 ```
 
 ## Dashboard-URL
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-WARNUNG 228s alt
+OK (44s alt)
 ```
 
 ## Portfolio
@@ -36,9 +36,9 @@ Offene Pos.:   0
 
 ## Letzte Fehler (3)
 ```
-2026-04-18 07:38:02 | WARNING  | polymarket_bot.execution | Balance-Check fehlgeschlagen: PolyApiException[status_code=400, error_message={'error': 'GetBalanceAndAllowance invalid params: assetAddress invalid hex address '}]
-2026-04-18 08:00:52 | WARNING  | polymarket_bot.execution | Balance-Check fehlgeschlagen: PolyApiException[status_code=400, error_message={'error': 'GetBalanceAndAllowance invalid params: assetAddress invalid hex address '}]
-2026-04-18 08:07:16 | WARNING  | polymarket_bot.execution | Balance-Check fehlgeschlagen: PolyApiException[status_code=400, error_message={'error': 'GetBalanceAndAllowance invalid params: assetAddress invalid hex address '}]
+SyntaxError: unterminated string literal (detected at line 470)
+2026-04-18 08:14:42 | WARNING  | polymarket_bot.execution | Balance-Check fehlgeschlagen: PolyApiException[status_code=400, error_message={'error': 'GetBalanceAndAllowance invalid params: assetAddress invalid hex address '}]
+2026-04-18 08:15:21 | WARNING  | polymarket_bot.execution | Balance-Check fehlgeschlagen: PolyApiException[status_code=400, error_message={'error': 'GetBalanceAndAllowance invalid params: assetAddress invalid hex address '}]
 ```
 
 ---
