@@ -180,7 +180,7 @@ NIEMALS  +  separat.
 
 ## P022 -- Stale bot.lock -> Endlos-Crash-Loop (06:29-07:23 UTC, 2026-04-18)
 
-**Status:** DOKUMENTIERT | Behoben durch manuelles rm + systemctl restart
+**Status:** BEHOBEN (struktureller Fix 2026-04-18 08:15 UTC)
 
 **Symptom:**
 Bot startet ~alle 15s, laeuft 1.5s, Exit-Code 1.
@@ -218,6 +218,33 @@ Handler registriert ist -> Lock bleibt und blockiert alle Neustarts.
 3. Watchdog: vor restart -> rm bot.lock (eine Zeile hinzufuegen)
 4. ankr-RPC Timeout hart auf 5s cappen (kein haengendes Request)
 
+
+
+**Struktureller Fix (2026-04-18) — 3-Ebenen-Absicherung:**
+
+Ebene 1 — main.py (check_and_create_lock):
+  - Liest PID aus bot.lock, prueft via psutil ob Prozess wirklich existiert
+  - Ist PID tot: lock entfernen + normal starten (kein exit(1))
+  - atexit.register(_remove_lock): lock wird auch bei unerwarteten Exceptions geloescht
+  - signal.SIGTERM + SIGHUP Handler: lock vor exit raeumen
+  - Ergebnis: Bot selbst loest stale lock auf
+
+Ebene 2 — watchdog.py (cleanup_stale_lock):
+  - Vor jedem systemctl restart: prueft ob PID in bot.lock lebt
+  - Wenn tot: lock entfernen BEVOR restart getriggert wird
+  - Ergebnis: Watchdog verursacht keine neuen Lock-Loops mehr
+
+Ebene 3 — systemd ExecStartPre:
+  - Shell-Check vor jedem Start: lock existiert + PID tot -> rm -f bot.lock
+  - Unabhaengig von Python-Code, greift auf OS-Ebene
+  - Ergebnis: selbst wenn Ebene 1+2 versagen, startet systemd sauber
+
+Nebenfix: StartLimitBurst 3->10 (verhindert permanent-failed bei schnellen Restarts)
+
+Test-Protokoll:
+  kill -9 <BOT_PID>  -> systemd erkennt SIGKILL -> ExecStartPre entfernt stale lock
+  -> Bot startet sauber in <26s (15s RestartSec + Startup-Zeit)
+  Log: "[systemd] Stale lock removed (PID X tot)"
 
 ---
 
