@@ -1,6 +1,6 @@
 # KongTradeBot Live Status
 
-> 2026-04-18 08:36:43 UTC
+> 2026-04-18 08:37:19 UTC
 
 ## Bot-Status
 ```
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-OK — lief vor 14s | HB: OK (58s alt)
+OK — lief vor 50s | HB: OK (94s alt)
 ```
 
 ## Portfolio
@@ -27,11 +27,11 @@ Offene Pos.:   0
 
 ## Letzte Trades (5)
 ```
-2026-04-18 08:33:57 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.120 | $0.45 USDC | Will Trump agree to Iranian transit fees in the Strait of Ho)
-2026-04-18 08:34:28 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yunchaokete Bu @ $0.810 | $4.56 USDC | Busan: Alex Bolt vs Yunchaokete Bu)
-2026-04-18 08:34:37 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alex Bolt @ $0.170 | $84.19 USDC | Busan: Alex Bolt vs Yunchaokete Bu)
-2026-04-18 08:35:28 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.590 | $3.73 USDC | Will Nicolás Maduro be the leader of Venezuela end of 2026?)
 2026-04-18 08:35:56 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yunchaokete Bu @ $0.780 | $314.97 USDC | Busan: Alex Bolt vs Yunchaokete Bu)
+2026-04-18 08:36:46 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.326 | $11790.72 USDC | US x Iran permanent peace deal by April 22, 2026?)
+2026-04-18 08:36:46 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.330 | $394.52 USDC | US x Iran permanent peace deal by April 22, 2026?)
+2026-04-18 08:36:46 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yes @ $0.330 | $144.05 USDC | US x Iran permanent peace deal by April 22, 2026?)
+2026-04-18 08:36:56 | INFO     | polymarket_bot.copy_trading | 📋 Order erstellt: CopyOrder[LIVE] BUY $3.15 | TradeSignal(BUY Yunchaokete Bu @ $0.780 | $314.97 USDC | Busan: Alex Bolt vs Yunchaokete Bu)
 ```
 
 ## Letzte Fehler (3)
