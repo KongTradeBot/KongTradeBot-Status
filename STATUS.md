@@ -1,10 +1,10 @@
 # KongTradeBot Live Status
 
-> 2026-04-18 08:26:32 UTC
+> 2026-04-18 08:31:59 UTC
 
 ## Bot-Status
 ```
-RUNNING (seit Sat 2026-04-18 08:24:49 UTC)
+RUNNING (seit Sat 2026-04-18 08:31:14 UTC)
 ```
 
 ## Dashboard-URL
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-OK (101s alt)
+OK (42s alt)
 ```
 
 ## Portfolio
@@ -27,18 +27,18 @@ Offene Pos.:   0
 
 ## Letzte Trades (5)
 ```
-2026-04-18 08:23:31 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.530 | $1.69 USDC | St. Louis Cardinals vs. Houston Astros: O/U 8.5)
-2026-04-18 08:24:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yunchaokete Bu @ $0.740 | $14.23 USDC | Busan: Alex Bolt vs Yunchaokete Bu)
-2026-04-18 08:24:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yunchaokete Bu @ $0.740 | $6.73 USDC | Busan: Alex Bolt vs Yunchaokete Bu)
-2026-04-18 08:24:21 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yunchaokete Bu @ $0.740 | $14.23 USDC | Busan: Alex Bolt vs Yunchaokete Bu)
-2026-04-18 08:24:31 | INFO     | polymarket_bot.copy_trading | 📋 Order erstellt: CopyOrder[LIVE] BUY $0.08 | TradeSignal(BUY Over @ $0.530 | $5.64 USDC | St. Louis Cardinals vs. Houston Astros: O/U 8.5)
+2026-04-18 08:31:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alex Bolt @ $0.180 | $0.90 USDC | Busan: Alex Bolt vs Yunchaokete Bu)
+2026-04-18 08:31:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alex Bolt @ $0.180 | $4.44 USDC | Busan: Alex Bolt vs Yunchaokete Bu)
+2026-04-18 08:31:13 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alex Bolt @ $0.180 | $0.80 USDC | Busan: Alex Bolt vs Yunchaokete Bu)
+2026-04-18 08:31:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alex Bolt @ $0.190 | $11.73 USDC | Busan: Alex Bolt vs Yunchaokete Bu)
+2026-04-18 08:31:58 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Alex Bolt @ $0.190 | $13.63 USDC | Busan: Alex Bolt vs Yunchaokete Bu)
 ```
 
 ## Letzte Fehler (3)
 ```
-2026-04-18 08:18:31 | WARNING  | polymarket_bot.execution | Balance-Check fehlgeschlagen: PolyApiException[status_code=400, error_message={'error': 'GetBalanceAndAllowance invalid params: assetAddress invalid hex address '}]
-2026-04-18 08:21:39 | WARNING  | polymarket_bot.execution | Balance-Check fehlgeschlagen: PolyApiException[status_code=400, error_message={'error': 'GetBalanceAndAllowance invalid params: assetAddress invalid hex address '}]
 2026-04-18 08:24:50 | WARNING  | polymarket_bot.execution | Balance-Check fehlgeschlagen: PolyApiException[status_code=400, error_message={'error': 'GetBalanceAndAllowance invalid params: assetAddress invalid hex address '}]
+2026-04-18 08:28:01 | WARNING  | polymarket_bot.execution | Balance-Check fehlgeschlagen: PolyApiException[status_code=400, error_message={'error': 'GetBalanceAndAllowance invalid params: assetAddress invalid hex address '}]
+2026-04-18 08:31:16 | WARNING  | polymarket_bot.execution | Balance-Check fehlgeschlagen: PolyApiException[status_code=400, error_message={'error': 'GetBalanceAndAllowance invalid params: assetAddress invalid hex address '}]
 ```
 
 ---
