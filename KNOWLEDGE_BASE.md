@@ -217,3 +217,56 @@ Handler registriert ist -> Lock bleibt und blockiert alle Neustarts.
 2. bot.lock beim Start pruefen: wenn PID drin tot ist -> automatisch loeschen (PID-Lock)
 3. Watchdog: vor restart -> rm bot.lock (eine Zeile hinzufuegen)
 4. ankr-RPC Timeout hart auf 5s cappen (kein haengendes Request)
+
+
+---
+
+## P023 -- Defensive Config Deployment (2026-04-18, nach $137 Verlust)
+
+**Status:** DEPLOYED
+
+**Kontext:**
+Bot hatte COPY_SIZE_MULTIPLIER=0.15 und keine Positions-Limits.
+Nach $137 Verlust durch aggressive Orders auf illiquide Maerkte (Kolumbien, Ecuador, etc.)
+wurde defensive Config deployed.
+
+**Aenderungen in .env:**
+- COPY_SIZE_MULTIPLIER: 0.15 -> 0.05 (3x kleinere Orders)
+- MAX_POSITIONS_TOTAL=15 (max gleichzeitig offene Positionen)
+- MIN_MARKT_VOLUMEN=50000 (keine Maerkte unter $50k Volumen)
+- CATEGORY_BLACKLIST=col1-,por-,ecu-,arg-b- (Kolumbien1, Portugal, Ecuador, Argentinien B)
+- WALLET_WEIGHTS=JSON mit per-Wallet Multiplikatoren (env-Override)
+
+**Code-Aenderungen (strategies/copy_trading.py):**
+- _load_env_weights() + _apply_env_weights(): merged WALLET_WEIGHTS aus .env
+- _process_signal(): 3 neue Checks vor Order-Erstellung:
+  0a. CATEGORY_BLACKLIST gegen market_slug
+  0b. MIN_MARKT_VOLUMEN gegen signal.market_volume_usd
+  0c. MAX_POSITIONS_TOTAL via get_open_positions_count Callback
+- Skip-Log: "SKIP: reason=X (slug/wallet)"
+
+**Warum kein harter Revert:** Code-Aenderung minimal, env-Werte leicht anpassbar.
+
+---
+
+## P024 -- Cloudflare Quick Tunnel Setup (trycloudflare.com)
+
+**Status:** AKTIV | systemd kongtrade-tunnel.service
+
+**Problem:** Dashboard (Port 5000) war nur via SSH-Tunnel erreichbar.
+
+**Setup:**
+- cloudflared war bereits als arm64-Binary installiert (2026.3.0)
+- Kein Account/Login noetig fuer trycloudflare.com Quick Tunnel
+- systemd Service: /etc/systemd/system/kongtrade-tunnel.service
+  ExecStart: cloudflared tunnel --url http://localhost:5000
+
+**Wichtig - LIMITATION:**
+URL aendert sich bei jedem Service-Neustart (zufaellige Subdomain).
+Aktuelle URL: siehe journalctl -u kongtrade-tunnel | grep trycloudflare
+
+**Upgrade-Pfad (spaeter):**
+Named Tunnel mit fester Subdomain benoetigt:
+1. cloudflared tunnel login (Browser-Auth)
+2. cloudflared tunnel create kongtrade
+3. DNS CNAME bei eigener Domain

@@ -79,6 +79,9 @@ _Stand: 2026-04-18 07:30 Berlin_
 | T-D28 | Public Repo KongTradeBot-Status angelegt + Initial-Push | 2026-04-18 |
 | T-D29 | generate_status.py + push_status.sh deployed | 2026-04-18 |
 | T-D30 | systemd Timer kongtrade-status-push alle 5min aktiv | 2026-04-18 |
+| T-D31 | Defensive Config: Multiplier 0.15->0.05, MAX_POS=15, BLACKLIST, MIN_VOL | 2026-04-18 |
+| T-D32 | WALLET_WEIGHTS env-Override in copy_trading.py implementiert | 2026-04-18 |
+| T-D33 | Cloudflare Quick Tunnel kongtrade-tunnel.service aktiv | 2026-04-18 |
 
 ---
 

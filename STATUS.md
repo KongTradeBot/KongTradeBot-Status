@@ -1,15 +1,15 @@
 # KongTradeBot Live Status
 
-> 2026-04-18 08:05:59 UTC
+> 2026-04-18 08:07:58 UTC
 
 ## Bot-Status
 ```
-DOWN activating/auto-restart
+RUNNING (seit Sat 2026-04-18 08:07:14 UTC)
 ```
 
 ## Watchdog
 ```
-WARNUNG 306s alt
+OK (41s alt)
 ```
 
 ## Portfolio
@@ -31,9 +31,9 @@ Offene Pos.:   0
 
 ## Letzte Fehler (3)
 ```
-2026-04-18 07:23:34 | WARNING  | polymarket_bot.execution | Balance-Check fehlgeschlagen: PolyApiException[status_code=400, error_message={'error': 'GetBalanceAndAllowance invalid params: assetAddress invalid hex address '}]
 2026-04-18 07:38:02 | WARNING  | polymarket_bot.execution | Balance-Check fehlgeschlagen: PolyApiException[status_code=400, error_message={'error': 'GetBalanceAndAllowance invalid params: assetAddress invalid hex address '}]
 2026-04-18 08:00:52 | WARNING  | polymarket_bot.execution | Balance-Check fehlgeschlagen: PolyApiException[status_code=400, error_message={'error': 'GetBalanceAndAllowance invalid params: assetAddress invalid hex address '}]
+2026-04-18 08:07:16 | WARNING  | polymarket_bot.execution | Balance-Check fehlgeschlagen: PolyApiException[status_code=400, error_message={'error': 'GetBalanceAndAllowance invalid params: assetAddress invalid hex address '}]
 ```
 
 ---
