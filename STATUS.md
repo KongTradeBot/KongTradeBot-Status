@@ -1,10 +1,10 @@
 # KongTradeBot Live Status
 
-> 2026-04-18 08:16:11 UTC
+> 2026-04-18 08:21:19 UTC
 
 ## Bot-Status
 ```
-RUNNING (seit Sat 2026-04-18 08:15:20 UTC)
+RUNNING (seit Sat 2026-04-18 08:18:29 UTC)
 ```
 
 ## Dashboard-URL
@@ -14,7 +14,7 @@ https://judges-stanford-candidate-classifieds.trycloudflare.com
 
 ## Watchdog
 ```
-OK (49s alt)
+WARNUNG 167s alt
 ```
 
 ## Portfolio
@@ -27,18 +27,18 @@ Offene Pos.:   0
 
 ## Letzte Trades (5)
 ```
-2026-04-18 07:39:44 | INFO     | polymarket_bot.copy_trading | 📋 Order erstellt: CopyOrder[LIVE] BUY $4.68 | TradeSignal(BUY Yunchaokete Bu @ $0.550 | $156.14 USDC | Busan: Alex Bolt vs Yunchaokete Bu)
-2026-04-18 08:01:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yunchaokete Bu @ $0.560 | $25.45 USDC | Busan: Alex Bolt vs Yunchaokete Bu)
-2026-04-18 08:01:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yunchaokete Bu @ $0.560 | $214.12 USDC | Busan: Alex Bolt vs Yunchaokete Bu)
-2026-04-18 08:01:04 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Yunchaokete Bu @ $0.560 | $96.56 USDC | Busan: Alex Bolt vs Yunchaokete Bu)
-2026-04-18 08:02:04 | INFO     | polymarket_bot.copy_trading | 📋 Order erstellt: CopyOrder[LIVE] BUY $0.76 | TradeSignal(BUY Yunchaokete Bu @ $0.560 | $25.45 USDC | Busan: Alex Bolt vs Yunchaokete Bu)
+2026-04-18 08:21:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.550 | $1.34 USDC | Raptors vs. Cavaliers: O/U 217.5)
+2026-04-18 08:21:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.550 | $1.34 USDC | Raptors vs. Cavaliers: O/U 217.5)
+2026-04-18 08:21:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.550 | $6.11 USDC | Raptors vs. Cavaliers: O/U 217.5)
+2026-04-18 08:21:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.550 | $1.34 USDC | Raptors vs. Cavaliers: O/U 217.5)
+2026-04-18 08:21:03 | INFO     | polymarket_bot.wallet_monitor | 🆕 NEUER TRADE erkannt: TradeSignal(BUY Over @ $0.550 | $1.83 USDC | Raptors vs. Cavaliers: O/U 217.5)
 ```
 
 ## Letzte Fehler (3)
 ```
-SyntaxError: unterminated string literal (detected at line 470)
 2026-04-18 08:14:42 | WARNING  | polymarket_bot.execution | Balance-Check fehlgeschlagen: PolyApiException[status_code=400, error_message={'error': 'GetBalanceAndAllowance invalid params: assetAddress invalid hex address '}]
 2026-04-18 08:15:21 | WARNING  | polymarket_bot.execution | Balance-Check fehlgeschlagen: PolyApiException[status_code=400, error_message={'error': 'GetBalanceAndAllowance invalid params: assetAddress invalid hex address '}]
+2026-04-18 08:18:31 | WARNING  | polymarket_bot.execution | Balance-Check fehlgeschlagen: PolyApiException[status_code=400, error_message={'error': 'GetBalanceAndAllowance invalid params: assetAddress invalid hex address '}]
 ```
 
 ---
