@@ -85,6 +85,7 @@ _Stand: 2026-04-18 07:30 Berlin_
 | T-D34 | tunnel_watcher.py + Timer -> Telegram-Alert bei URL-Aenderung | 2026-04-18 |
 | T-D35 | generate_status.py: Dashboard-URL Abschnitt hinzugefuegt | 2026-04-18 |
 | T-D36 | P022 struktureller Fix: PID-Lock + atexit + ExecStartPre (3 Ebenen) | 2026-04-18 |
+| T-D37 | P026: Watchdog-HB-Fix + MIN_VOL-Bug (vol=0 fuelschlicherweise skip) | 2026-04-18 |
 
 ---
 

@@ -324,3 +324,34 @@ Bei Aenderung:
 
 **Langfristige Loesung:**
 Named Tunnel mit eigener Domain -> feste URL ohne Watcher noetig.
+
+
+---
+
+## P026 -- Watchdog-Heartbeat STALE in STATUS.md (2026-04-18)
+
+**Status:** BEHOBEN
+
+**Symptom:** STATUS.md zeigte "STALE 1175s alt" fuer Watchdog-Heartbeat.
+
+**Root-Causes (2 Probleme):**
+
+1. generate_status.py Schwellwert 120s zu eng:
+   heartbeat_loop() in main.py schreibt alle 300s -> Heartbeat bis zu 300s alt.
+   Mit Schwellwert 120s -> fast immer "WARNUNG", nach laengerer Pause -> "STALE".
+   Fix: Schwellwerte auf 360s (OK) / 700s (WARN) angepasst.
+
+2. systemctl-native Timer-Info als zusaetzliche Quelle:
+   get_watchdog_timer_info() liest LastTriggerUSec aus systemctl show.
+   Parsing: systemd liefert lesbares Datum ("Sat 2026-04-18 08:35:27 UTC"),
+   nicht Unix-Timestamp -> datetime.strptime mit regex.
+
+**Kritischer Nebenbefund (P026b) — MIN_MARKT_VOLUMEN Bug:**
+   copy_trading.py skippte ALLE Signale weil market_volume_usd=0 (unbekannt) < 50000.
+   WalletMonitor befuellt market_volume_usd nicht -> bleibt 0 (kein None).
+   Fix: Bedingung auf `vol > 0 and vol < MIN_MARKT_VOLUMEN_USD` geaendert.
+   Betroffen: alle Signale zwischen 08:15 und 08:34 UTC wurden faelschlicherweise geskippt.
+
+**Files geaendert:**
+- /root/KongTradeBot/scripts/generate_status.py (Schwellwerte + Timer-Info)
+- /root/KongTradeBot/strategies/copy_trading.py (vol>0 Guard)
