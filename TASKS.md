@@ -82,6 +82,8 @@ _Stand: 2026-04-18 07:30 Berlin_
 | T-D31 | Defensive Config: Multiplier 0.15->0.05, MAX_POS=15, BLACKLIST, MIN_VOL | 2026-04-18 |
 | T-D32 | WALLET_WEIGHTS env-Override in copy_trading.py implementiert | 2026-04-18 |
 | T-D33 | Cloudflare Quick Tunnel kongtrade-tunnel.service aktiv | 2026-04-18 |
+| T-D34 | tunnel_watcher.py + Timer -> Telegram-Alert bei URL-Aenderung | 2026-04-18 |
+| T-D35 | generate_status.py: Dashboard-URL Abschnitt hinzugefuegt | 2026-04-18 |
 
 ---
 

@@ -270,3 +270,30 @@ Named Tunnel mit fester Subdomain benoetigt:
 1. cloudflared tunnel login (Browser-Auth)
 2. cloudflared tunnel create kongtrade
 3. DNS CNAME bei eigener Domain
+
+
+---
+
+## P025 -- Dashboard-URL aendert sich bei Tunnel-Restart -> Telegram-Watcher
+
+**Status:** DEPLOYED | kongtrade-tunnel-watcher.timer (alle 5min)
+
+**Problem:**
+trycloudflare.com Quick-Tunnel generiert bei jedem Neustart eine neue zufaellige URL.
+Brrudi wusste nicht welche URL aktuell gueltig ist.
+
+**Loesung:**
+tunnel_watcher.py prueft alle 5min via journalctl ob URL sich geaendert hat.
+Bei Aenderung:
+  1. Neue URL in .current_tunnel_url speichern
+  2. Telegram-Alert an ersten Chat aus TELEGRAM_CHAT_IDS
+  3. STATUS.md bekommt beim naechsten Push die neue URL
+
+**Files:**
+- /root/KongTradeBot/scripts/tunnel_watcher.py
+- /root/KongTradeBot/.current_tunnel_url (aktuelle URL)
+- /root/KongTradeBot/.last_tunnel_url (letzte bekannte URL fuer Change-Detection)
+- /etc/systemd/system/kongtrade-tunnel-watcher.service + .timer
+
+**Langfristige Loesung:**
+Named Tunnel mit eigener Domain -> feste URL ohne Watcher noetig.
