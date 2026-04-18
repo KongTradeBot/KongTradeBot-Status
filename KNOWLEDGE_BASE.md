@@ -1,0 +1,219 @@
+# KongTrade Bot — Knowledge Base
+_Format: Problem → Root-Cause → Fix → Status_
+_Ziel: Dokumentiert jeden gelösten Bug damit er nie wieder stundenlang debuggt werden muss._
+_Update: Nach jedem Fix neuen P00X-Eintrag hinzufügen._
+
+---
+
+## P001 — FillTracker: Alle Orders bleiben in pending, open_positions immer leer
+
+**Status:** ✅ BEHOBEN (18.04.2026)
+
+**Symptom:**
+Bot platziert echte Orders, Polymarket bestätigt sie, aber das Dashboard zeigt dauerhaft 0 offene Positionen.
+ enthält keine Einträge in .
+
+**Root-Cause:**
+ sendete die WebSocket-Auth mit Builder-Credentials statt L2-Credentials.
+Polymarket User-Channel (wss://ws-subscriptions-clob.polymarket.com/ws/user) erfordert L2-Credentials,
+die via  abgeleitet werden müssen.
+Mit falschen Creds → silent disconnect ohne Fehlermeldung → keine Events empfangen →
+alle Orders bleiben im  Bucket hängen →  bleibt leer.
+
+**Referenz:** github.com/Polymarket/clob-client/issues/303
+
+**Fix:**
+ →  Methode nutzt jetzt :
+
+Fallback auf Config-Creds wenn derive fehlschlägt.
+
+**Verification:**
+Nach Neustart: WebSocket sollte Events empfangen (log zeigt User-Channel subscribed).
+Nach nächster Order: Position erscheint in open_positions (Dashboard Tab OPEN).
+
+---
+
+## P002 — On-Chain Verifikation: 'dict object has no attribute signature_type'
+
+**Status:** ✅ BEHOBEN (17.04.2026)
+
+**Symptom:**
+
+Bei jeder Order, nach dem Submit.
+
+**Root-Cause:**
+ rief  mit einem plain dict auf:
+
+py-clob-client erwartet aber ein  Objekt.
+
+**Fix:**
+:
+
+
+---
+
+## P003 — Stale Positionen nach Bot-Neustart verloren
+
+**Status:** ✅ BEHOBEN (18.04.2026)
+
+**Symptom:**
+Bot neugestartet.  enthält open_positions aber nach Reload sind Pending-Orders verschwunden.
+Orders die im pending-Bucket waren (submitted, noch nicht confirmed) sind nach Neustart weg.
+
+**Root-Cause:**
+ in main.py speicherte nur , nicht .
+Außerdem wurde  nicht serialisiert → nach Restore fehlten Countdown-Informationen.
+
+**Fix:**
+:
+1.  → fügt  zur Serialisierung hinzu
+2.  → deserialisiert  zurück zu datetime
+3. Neue  Async-Funktion → fragt Polymarket REST 
+   nach offenen Orders und fügt sie als pending hinzu falls noch nicht im State
+
+---
+
+## P004 — Proxy-Deploy Catch-22 (Magic-Link Account)
+
+**Status:** ✅ DOKUMENTIERT (17.04.2026)
+
+**Symptom:**
+Bot startet, alle Orders scheitern mit Allowance-Fehler. Kein Trade möglich.
+
+**Root-Cause:**
+Polymarket Proxy-Contract wird erst deployed wenn der ERSTE erfolgreiche Trade stattfindet.
+Wenn der allererste Trade scheitert (Geoblock, Allowance=0, etc.) → Proxy nicht deployed →
+Allowance=0 → Trade scheitert → Teufelskreis.
+
+**Lösung:**
+ Manual-Trade auf polymarket.com über **Norwegen-VPN** (AirVPN) machen.
+Finnland-AirVPN funktioniert nicht. Norwegen funktioniert.
+
+---
+
+## P005 — Balance-Fetch schlägt fehl mit RPC rpc.ankr.com
+
+**Status:** ✅ WORKAROUND (17.04.2026)
+
+**Symptom:**
+
+Log zeigt  Balance obwohl 900+ USDC.e on-chain.
+
+**Root-Cause:**
+ blockiert oder rate-limited Anfragen von Hetzner-IP.
+
+**Workaround:**
+ → Mehrere Fallback-RPCs konfiguriert:
+1. https://rpc.ankr.com/polygon (primary, oft flaky)
+2. https://polygon-bor-rpc.publicnode.com (reliable)
+3. https://polygon-rpc.com
+4. https://1rpc.io/matic
+
+Dashboard nutzt direkt  als Primary.
+
+---
+
+## P006 — signature_type=1 Pflicht für Magic-Link Account
+
+**Status:** ✅ DOKUMENTIERT (17.04.2026)
+
+**Symptom:**
+Alle Orders scheitern mit Auth-Fehler obwohl Private Key korrekt ist.
+
+**Root-Cause:**
+Magic-Link Account erfordert  im ClobClient.
+Standard-Wert 0 ist für MetaMask/EOA Wallets.
+
+**Fix:**
+
+
+---
+
+## P007 — NegRisk-Märkte: NEGRISK-Flag erforderlich
+
+**Status:** ✅ DOKUMENTIERT (17.04.2026)
+
+**Symptom:**
+Orders auf bestimmten Märkten (z.B. Maduro Venezuela) scheitern oder werden falsch behandelt.
+
+**Root-Cause:**
+Polymarket hat Negative Risk Märkte die spezielle Behandlung brauchen.
+Das  Flag kommt vom Orderbook-Endpoint ().
+
+**Fix:**
+ liest  aus dem Orderbook und loggt es.
+Das Flag wird im Order-Log als  ausgegeben.
+
+---
+
+## P008 — Ghost Trades durch create_order + post_order separat
+
+**Status:** ✅ DOKUMENTIERT (community lesson)
+
+**Symptom:**
+Doppelte Orders auf Polymarket, Balance-Inkonsistenzen.
+
+**Root-Cause:**
+Wenn  und  in zwei separaten Calls aufgerufen werden,
+kann ein Netzwerkfehler zwischen den Calls einen Ghost Trade erzeugen.
+
+**Fix:**
+Immer  in einem einzigen Call verwenden.
+NIEMALS  +  separat.
+
+---
+
+## 📋 Wallet-Referenz
+
+| Wallet | Name | Multiplier | Notes |
+|--------|------|-----------|-------|
+| 0x019782... | majorexploiter | 3.0x | 76% Win Rate |
+| 0x492442... | April#1 Sports | 2.0x | 65% Win Rate |
+| 0x02227b... | HorizonSplendidView | 2.0x | Sports specialist |
+| RN1 | RN1 | 0.2x | Kleiner Einsatz |
+
+## 🔑 Infrastruktur-Quick-Reference
+
+
+
+---
+
+## P022 -- Stale bot.lock -> Endlos-Crash-Loop (06:29-07:23 UTC, 2026-04-18)
+
+**Status:** DOKUMENTIERT | Behoben durch manuelles rm + systemctl restart
+
+**Symptom:**
+Bot startet ~alle 15s, laeuft 1.5s, Exit-Code 1.
+Journalctl: "Main process exited, code=exited, status=1/FAILURE" in Dauerschleife.
+service-bot.log enthaelt nur: "Bot laeuft bereits! Lock-Datei: /root/KongTradeBot/bot.lock"
+Watchdog erkennt DOWN, versucht Restart -- hilft nicht (Lock bleibt).
+
+**Timeline:**
+- 06:17-06:47: Ankr RPC liefert $0.00 (Balance-Fehler, kein CRITICAL geloggt)
+- ~06:28: Original-Prozess crashed still (kein Fehler-Log, Journal rotiert)
+- 06:29:55: systemd-Restart startet Lock-Loop
+- 06:47: Letzter Log-Eintrag des alten Prozesses (bot_2026-04-17.log)
+- 07:23: Manuell gefixt -- rm bot.lock + systemctl reset-failed + restart
+
+**Root-Cause:**
+Ausloeser: ankr-RPC-Ausfall -> Balance-Fetch haengt/fail-loops ->
+Heartbeat-Update stoppt -> Watchdog erkennt stale Heartbeat (>1700s) ->
+systemctl restart sendet SIGTERM -> Prozess terminiert OHNE Lock-Cleanup
+(atexit/Signal-Handler lief nicht durch, Race-Condition moeglich
+bei gleichzeitigem ankr-Timeout-Thread).
+
+**Mechanismus:**
+bot.lock wird beim Start gesetzt, aber cleanup() nicht via atexit registriert,
+nur via SIGTERM-Handler. Bei hartem Kill oder Startup-Exception BEVOR
+Handler registriert ist -> Lock bleibt und blockiert alle Neustarts.
+
+**Fix (sofort):**
+  rm -f /root/KongTradeBot/bot.lock
+  systemctl reset-failed kongtrade-bot
+  systemctl restart kongtrade-bot
+
+**Fix (strukturell -- TODO):**
+1. bot.lock Cleanup via atexit.register(cleanup) ZUSAETZLICH zu Signal-Handler
+2. bot.lock beim Start pruefen: wenn PID drin tot ist -> automatisch loeschen (PID-Lock)
+3. Watchdog: vor restart -> rm bot.lock (eine Zeile hinzufuegen)
+4. ankr-RPC Timeout hart auf 5s cappen (kein haengendes Request)
